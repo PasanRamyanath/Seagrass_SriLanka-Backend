@@ -20,11 +20,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=f"postgres://{os.environ.get('DB_USER')}:{os.environ.get('DB_PASS')}@{os.environ.get('DB_HOST')}:{os.environ.get('DB_PORT')}/{os.environ.get('DB_NAME')}"
-    )
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=f"postgres://{os.environ.get('DB_USER')}:{os.environ.get('DB_PASS')}@{os.environ.get('DB_HOST')}:{os.environ.get('DB_PORT')}/{os.environ.get('DB_NAME')}"
+#     )
+# }
 
 
 # Quick-start development settings - unsuitable for production
