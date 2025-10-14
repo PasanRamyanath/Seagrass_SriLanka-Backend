@@ -13,20 +13,37 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 from datetime import timedelta
+import dj_database_url
+from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=f"postgres://{os.environ.get('DB_USER')}:{os.environ.get('DB_PASS')}@{os.environ.get('DB_HOST')}:{os.environ.get('DB_PORT')}/{os.environ.get('DB_NAME')}"
+    )
+}
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-m9-hy8ujq@v=_^asqh%g2)x6x&&lk+_=s4bnmkrvkca!yqhx37'
+# SECRET_KEY = 'django-insecure-m9-hy8ujq@v=_^asqh%g2)x6x&&lk+_=s4bnmkrvkca!yqhx37'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','*']
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1','*']
+
+
+from decouple import config
+
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*').split(',')
 
 
 # Application definition
@@ -93,16 +110,31 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'seagrass_db',
+#         'USER': 'seagrass_admin',
+#         'PASSWORD': 'wasana13',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'seagrass_db',
-        'USER': 'seagrass_admin',
-        'PASSWORD': 'wasana13',
-        'HOST': 'localhost',
+        'NAME': 'seagrass_db',  # Use the database that works on Azure
+        'USER': 'wasana13',  # Just the username, no @servername
+        'PASSWORD': 'Weerakoon13',
+        'HOST': 'seagrass-postgresql.postgres.database.azure.com',
         'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
 }
+
 
 
 # Password validation
@@ -180,6 +212,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:5173",  
     "http://127.0.0.1:5173",
+    
 ]
 
 CORS_ALLOW_CREDENTIALS = True
