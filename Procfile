@@ -1,0 +1,1 @@
+web: gunicorn Seagrass_SriLanka_Backend.wsgi:application
