@@ -116,7 +116,7 @@ def delete_gallery_image(request, image_id):
 @api_view(['GET'])
 @permission_classes([IsAdminUser])
 def get_admin_gallery_images(request):
-    images = Gallery_images.objects.filter(admin_id=request.user.user_id).order_by('-uploaded_at')
+    images = Gallery_images.objects.order_by('-uploaded_at')
     serializer = GalleryImageSerializer(images, many=True)
     return Response({
         'success': True,
