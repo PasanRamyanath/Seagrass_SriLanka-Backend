@@ -124,14 +124,19 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'seagrass_db',  # Use the database that works on Azure
-        'USER': 'wasana13',  # Just the username, no @servername
-        'PASSWORD': 'Weerakoon13',
-        'HOST': 'seagrass-postgresql.postgres.database.azure.com',
-        'PORT': '5432',
+        'NAME': os.environ.get('DB_NAME', 'seagrass_db'),  # Use env vars in production
+        'USER': os.environ.get('DB_USER', 'wasana13'),  # fallback for local/dev
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'Weerakoon13'),
+        'HOST': os.environ.get('DB_HOST', 'seagrass-postgresql.postgres.database.azure.com'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
         'OPTIONS': {
             'sslmode': 'require',
         },
+        # Keep DB connections open instead of opening/closing every request.
+        # Set CONN_MAX_AGE (seconds) via env var in production (e.g. 600).
+        'CONN_MAX_AGE': int(os.environ.get('CONN_MAX_AGE', 600)),
+        # Enable health checks to avoid using stale connections.
+        'CONN_HEALTH_CHECKS': True,
     }
 }
 
