@@ -2,8 +2,6 @@
 
 A Django REST API powering the Seagrass Sri Lanka platform. It provides authentication (JWT), content features (blogs, news, research articles, gallery), media uploads, an e‑commerce flow (products, cart, orders, payments), and admin operations.
 
-> Important: This repository currently hardcodes sensitive values (Django `SECRET_KEY`, DB credentials, OAuth secrets, and payment credentials) in code. Before deploying, move all secrets and environment‑specific settings into environment variables and/or a `.env` file, and adjust `backend/settings.py` to read from `os.environ`.
-
 ---
 
 ## Tech Stack
