@@ -124,10 +124,10 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'seagrass_db'),  # Use env vars in production
-        'USER': os.environ.get('DB_USER', 'wasana13'),  # fallback for local/dev
+        'NAME': os.environ.get('DB_NAME', 'taskpilot_seagrass_db'),  # Use env vars in production
+        'USER': os.environ.get('DB_USER', 'taskpilot_wasana13'),  # fallback for local/dev
         'PASSWORD': os.environ.get('DB_PASSWORD', 'Weerakoon13'),
-        'HOST': os.environ.get('DB_HOST', 'seagrass-postgresql.postgres.database.azure.com'),
+        'HOST': os.environ.get('DB_HOST', 'postgresql-taskpilot.alwaysdata.net'),
         'PORT': os.environ.get('DB_PORT', '5432'),
         'OPTIONS': {
             'sslmode': 'require',
